@@ -27,6 +27,35 @@ public class ClienteService {
 	@Transactional
 	public Optional<Cliente> findById(Long id) {
 		return repository.findById(id);
+	}
+	
+	
+	public Cliente insert(Cliente cliente) {
+		Cliente cli = new Cliente();
+		cli.setName(cliente.getName());
+		cli.setCpf(cliente.getCpf());
+		cli.setIncome(cliente.getIncome());
+		cli.setBirthDate(cliente.getBirthDate());
+		cli.setChildren(cliente.getChildren());
+		cli = repository.save(cli);
+		return cli;
+	}
+
+	@Transactional
+	public Cliente update(Long id, Cliente cliente) {
+		
+		Cliente cli = repository.getOne(id);
+		cli.setName(cliente.getName());
+		cli.setCpf(cliente.getCpf());
+		cli.setIncome(cliente.getIncome());
+		cli.setBirthDate(cliente.getBirthDate());
+		cli.setChildren(cliente.getChildren());
+		return repository.save(cli);
+		
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
 	};
 	
 }
